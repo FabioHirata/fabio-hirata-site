@@ -79,11 +79,11 @@ A paleta e o ritmo visual seguem o DESIGN.md fornecido por Fabio e o vídeo Refe
 
 ## GitHub e publicação
 
-Repositório: `FabioHirata/fabio-hirata-site`, branch `main`, privado. Em 26/10/2026, a página de configuração do GitHub Pages exibiu “Upgrade or make this repository public to enable Pages”. A publicação aguarda uma decisão sobre plano ou visibilidade; nenhuma mudança de visibilidade ou contratação foi feita.
+Repositório: `FabioHirata/fabio-hirata-site`, branch `main`, público por autorização de Fabio. O histórico foi preservado. A publicação utiliza o GitHub Pages gratuito, sem domínio personalizado ou plano pago.
 
-O site está autorizado para publicação pública com os contatos escolhidos. Para manter o código privado, o plano da conta precisa oferecer Pages em repositórios privados. Nenhum endereço público foi confirmado ainda.
+O workflow `.github/workflows/pages.yml` executa os testes e publica um artefato com somente `index.html`, `styles.css`, `script.js`, `motion.js`, `site-config.js` e `favicon.svg`. Documentação técnica, testes, capturas de QA e arquivos temporários não fazem parte do site servido. Não há fotos ou segredos no projeto.
 
-O payload público deve conter apenas estes arquivos: `index.html`, `styles.css`, `script.js`, `motion.js`, `site-config.js` e `favicon.svg`. Ao configurar a hospedagem, prepare um artefato de publicação com essa lista explícita: não exponha documentação técnica, testes, capturas de QA ou arquivos temporários. Não há fotos ou segredos no projeto.
+Alterações nos seis arquivos do site ou no workflow iniciam uma publicação pela branch `main`. Também é possível executar o workflow manualmente na aba Actions. Mudanças apenas na documentação não publicam uma nova versão do site.
 
 A pasta local permanece acessível no VS Code. Ela não é um checkout Git autenticado; a sincronização utiliza a conexão pessoal já autorizada do GitHub. Não foram criadas credenciais nem alterada a confiança da pasta no editor.
 
