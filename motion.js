@@ -154,24 +154,30 @@
         const gain = 1-Math.exp(-Math.min(100,currentTime-previousSample)/190);
         previousSample = currentTime;
         tiltX += (targetX-tiltX)*gain; tiltY += (targetY-tiltY)*gain;
-        ripples = ripples.filter(r=>currentTime-r.at<1350);
+        ripples = ripples.filter(r=>currentTime-r.at<1800);
         return {tiltX, tiltY};
       },
       offset(x, y, index, seed) {
         if (!eligible()) return {x:0,y:0};
         let dx=0, dy=0;
         const age=(currentTime-shakeAt)/1000;
-        if (index%9===0 && age>=0 && age<1.65) {
-          const envelope=Math.sin(Math.PI*age/1.65)**2;
-          dx=Math.cos(seed)*12*envelope; dy=Math.sin(seed)*12*envelope;
+        if (index%4===0 && age>=0 && age<2) {
+          // A visible release followed by a longer, smooth reconstruction.
+          // Detection thresholds stay unchanged; only the visual response grows.
+          const progress=age<.32 ? age/.32 : (2-age)/1.68;
+          const envelope=progress*progress*(3-2*progress);
+          const direction=seed+.3*Math.sin(Math.PI*age/2);
+          dx=Math.cos(direction)*28*envelope; dy=Math.sin(direction)*28*envelope;
         }
         for (const ripple of ripples) {
           const t=(currentTime-ripple.at)/1000, distance=Math.hypot(x-ripple.x,y-ripple.y);
-          const wave=Math.exp(-(((distance-t*155)/28)**2))*Math.sin(Math.PI*Math.min(1,t/1.35))*2.2;
+          const wave=Math.exp(-(((distance-t*205)/42)**2))*Math.sin(Math.PI*Math.min(1,t/1.8))*9;
           dx+=(x-ripple.x)/Math.max(1,distance)*wave;
           dy+=(y-ripple.y)/Math.max(1,distance)*wave;
         }
-        return {x:dx,y:dy};
+        // Repeated taps and a concurrent shake stay bounded without adding energy.
+        const limit=Math.min(1,42/Math.max(1,Math.hypot(dx,dy)));
+        return {x:dx*limit,y:dy*limit};
       },
       destroy() {
         destroyed=true; enabled=false; generation++; pending=false;

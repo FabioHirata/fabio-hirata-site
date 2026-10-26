@@ -5,6 +5,7 @@
   --muted: #9a9a9a;
   --violet: #8052ff;
   --amber: #ffb829;
+  --teal: #63b8a5;
   --font: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -149,11 +150,13 @@ h2 { max-width: 900px; margin-bottom: 65px; font-size: clamp(46px, 6vw, 93px); }
 .credentials { display: flex; flex-wrap: wrap; gap: 12px 34px; margin-top: 48px; }
 .credentials p { margin: 0; color: var(--muted); font-size: 13px; letter-spacing: .01em; }
 .areas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(25px, 4vw, 76px); margin-top: 100px; }
-.area-symbol { display: block; margin-bottom: 27px; font-size: 26px; line-height: 1; }
 .violet { color: var(--violet); }
 .amber { color: var(--amber); }
+.teal { color: var(--teal); }
 .muted { color: var(--muted); }
 h3 { margin-bottom: 15px; font-size: 24px; font-weight: 400; letter-spacing: -.035em; }
+.area h3 { display: flex; align-items: center; gap: 12px; }
+.area-marker { flex: 0 0 9px; width: 9px; height: 9px; background: currentColor; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .area p { color: #aaa; font-size: 15px; line-height: 1.65; }
 .contact { padding-bottom: 230px; }
 .contact-copy { max-width: 590px; margin-bottom: 80px; }
@@ -202,7 +205,6 @@ body[lang="ja"] .eyebrow, body[lang="ja"] .section-meta { letter-spacing: .08em;
   h2 { margin-bottom: 40px; font-size: clamp(45px, 10vw, 72px); }
   .body-columns { grid-template-columns: 1fr; gap: 4px; }
   .areas { grid-template-columns: 1fr; gap: 48px; margin-top: 60px; }
-  .area-symbol { margin-bottom: 16px; }
   .area p { max-width: 340px; }
   .contact { padding-bottom: 140px; }
   .contact-copy { margin-bottom: 60px; }
