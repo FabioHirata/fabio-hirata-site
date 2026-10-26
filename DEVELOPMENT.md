@@ -1,6 +1,6 @@
 # Desenvolvimento do site pessoal de Fabio Hirata
 
-Site estático em português, japonês e inglês, preparado para futura hospedagem no GitHub Pages. Sem backend, dependências de produção, analytics, fontes externas, formulário ou chamadas a APIs.
+Site estático em português, japonês e inglês, publicado no GitHub Pages. Sem backend, dependências de produção, analytics, fontes externas, formulário ou chamadas a APIs.
 
 ## Preview local
 
@@ -79,6 +79,8 @@ A paleta e o ritmo visual seguem o DESIGN.md fornecido por Fabio e o vídeo Refe
 
 ## GitHub e publicação
 
+Site: [https://fabiohirata.github.io/fabio-hirata-site/](https://fabiohirata.github.io/fabio-hirata-site/). Publicação HTTPS verificada em 26/10/2026.
+
 Repositório: `FabioHirata/fabio-hirata-site`, branch `main`, público por autorização de Fabio. O histórico foi preservado. A publicação utiliza o GitHub Pages gratuito, sem domínio personalizado ou plano pago.
 
 O workflow `.github/workflows/pages.yml` executa os testes e publica um artefato com somente `index.html`, `styles.css`, `script.js`, `motion.js`, `site-config.js` e `favicon.svg`. Documentação técnica, testes, capturas de QA e arquivos temporários não fazem parte do site servido. Não há fotos ou segredos no projeto.
@@ -87,7 +89,7 @@ Alterações nos seis arquivos do site ou no workflow iniciam uma publicação p
 
 A pasta local permanece acessível no VS Code. Ela não é um checkout Git autenticado; a sincronização utiliza a conexão pessoal já autorizada do GitHub. Não foram criadas credenciais nem alterada a confiança da pasta no editor.
 
-Após a publicação, verificar a URL HTTPS real, assets relativos, idiomas, favicon e contatos. Os sensores ainda precisam de teste em aparelho físico; os testes automatizados cobrem os estados de permissão e o comportamento do controlador.
+Verificação após o deploy: raiz e seis arquivos do site retornaram HTTP 200 e bytes idênticos aos locais; documentação e testes retornaram 404 no Pages. PT/JA/EN, nome japonês, contatos, favicon, navegação interna e layout desktop/mobile conferidos no endereço público, sem erros de console. Os sensores ainda precisam de teste em aparelho físico; os testes automatizados cobrem os estados de permissão e o comportamento do controlador.
 
 ### Filamento interno
 
