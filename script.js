@@ -3,6 +3,9 @@ const translations = {
     htmlLang: "pt-BR",
     title: "Fabio Hirata — Pessoas, operações e tecnologia",
     description: "Fabio Hirata — entre pessoas, operações e tecnologia. Brasileiro vivendo em Fukui, Japão.",
+    displayName: "Fabio Hirata",
+    brandName: "FABIO HIRATA",
+    brandAria: "Fabio Hirata — início",
     skip: "Ir para o conteúdo",
     languageLabel: "Idioma",
     location: "Fukui, Japão",
@@ -35,14 +38,17 @@ const translations = {
   },
   ja: {
     htmlLang: "ja",
-    title: "ファビオ・ヒラタ — 人と現場と技術のあいだで",
-    description: "ファビオ・ヒラタ。2007年から日本に暮らし、福井を拠点に人、現場、技術に関わっています。",
+    title: "平田 ファビオ — 人と現場と技術のあいだで",
+    description: "平田 ファビオ。2007年から日本に暮らし、福井を拠点に人、現場、技術に関わっています。",
+    displayName: "平田 ファビオ",
+    brandName: "平田 ファビオ",
+    brandAria: "平田 ファビオ — ページ上部へ",
     skip: "本文へ移動",
     languageLabel: "言語",
     location: "日本・福井",
     heroEyebrow: "自己紹介",
     heroTitle: "人と現場と技術のあいだで。",
-    heroIntro: "ファビオ・ヒラタです。ブラジル出身で、2007年から日本で暮らしています。日々の仕事の実際を知り、人と役立つ方法をつなぐことに関心があります。",
+    heroIntro: "平田 ファビオです。ブラジル出身で、2007年から日本で暮らしています。日々の仕事の実際を知り、人と役立つ方法をつなぐことに関心があります。",
     heroLink: "私について",
     aboutLabel: "これまで",
     aboutTitle: "異なる現場を歩んできました。",
@@ -61,9 +67,9 @@ const translations = {
     contactText: "個人プロジェクトのためにアイデアを調べ、現場で働く方々の経験から学んでいます。お話しする機会があれば、まずは丁寧に聞き、理解したいと考えています。",
     contactPending: "公開用の連絡先は現在検討中です。",
     emailLabel: "メール",
-    emailAria: "ファビオ・ヒラタにメールを送る",
+    emailAria: "平田 ファビオにメールを送る",
     whatsappLabel: "WhatsApp",
-    whatsappAria: "WhatsAppでファビオ・ヒラタに連絡する",
+    whatsappAria: "WhatsAppで平田 ファビオに連絡する",
     footer: "福井で、丁寧につくりました。",
     backTop: "ページ上部へ"
   },
@@ -71,6 +77,9 @@ const translations = {
     htmlLang: "en",
     title: "Fabio Hirata — People, operations and technology",
     description: "Fabio Hirata — connecting people, operations and technology. Brazilian based in Fukui, Japan.",
+    displayName: "Fabio Hirata",
+    brandName: "FABIO HIRATA",
+    brandAria: "Fabio Hirata — home",
     skip: "Skip to content",
     languageLabel: "Language",
     location: "Fukui, Japan",
@@ -223,28 +232,102 @@ function scenePosition(p, stage, mobile) {
     x = (mobile ? .66 : .78) + Math.cos(p.angle) * p.radius * (mobile ? .37 : .29);
     y = (mobile ? .26 : .49) + Math.sin(p.angle) * p.radius * (mobile ? .23 : .4);
   } else if (stage === 1) {
-    // Trajetória: percurso contínuo entre contextos.
-    const t = p.ambientX;
-    x = (mobile ? .08 : .035) + t * (mobile ? .84 : .3);
-    y = (mobile ? .52 : .72) - t * (mobile ? .34 : .43)
-      + Math.sin(t * Math.PI * 2) * .075 + (p.ambientY - .5) * (mobile ? .19 : .23);
+    // Trajetória: caminho fino com três marcos.
+    if (p.ambientY < .22) {
+      const stop = Math.min(2, Math.floor(p.ambientX * 3)) / 2;
+      const angle = p.angle;
+      x = (mobile ? .10 : .06) + stop * (mobile ? .80 : .27)
+        + Math.cos(angle) * (mobile ? .018 : .009);
+      y = (mobile ? .61 : .73) - stop * (mobile ? .31 : .43)
+        + Math.sin(stop * Math.PI) * .045
+        + Math.sin(angle) * (mobile ? .015 : .013);
+    } else {
+      const t = p.ambientX;
+      x = (mobile ? .10 : .06) + t * (mobile ? .80 : .27);
+      y = (mobile ? .61 : .73) - t * (mobile ? .31 : .43)
+        + Math.sin(t * Math.PI) * .045 + (p.ambientY - .61) * .026;
+    }
   } else if (stage === 2) {
-    // Áreas: três núcleos para pessoas, operações e tecnologia.
+    // As três áreas aparecem como pessoas, engrenagem e código.
     const centers = mobile
-      ? [[.28, .21], [.74, .28], [.5, .53]]
-      : [[.08, .28], [.25, .4], [.14, .66]];
+      ? [[.77, .20], [.77, .45], [.77, .70]]
+      : [[.14, .23], [.14, .50], [.14, .77]];
     const center = centers[p.group];
-    x = center[0] + Math.cos(p.angle) * p.radius * (mobile ? .15 : .08);
-    y = center[1] + Math.sin(p.angle) * p.radius * (mobile ? .12 : .13);
+    const point = areaIconPosition(p);
+    const scale = mobile ? Math.min(width * .17, 62) : Math.min(width * .065, 104);
+    x = center[0] + point.x * scale / width;
+    y = center[1] + point.y * scale / height;
   } else {
-    // Conversa: duas órbitas que se encontram.
+    // Conversa: dois balões de fala voltados um para o outro.
     const pair = p.pair;
-    const centerX = mobile ? (pair ? .65 : .37) : (pair ? .27 : .11);
-    const ring = .88 + (p.radius - .5) * .14;
-    x = centerX + Math.cos(p.angle) * ring * (mobile ? .22 : .11);
-    y = (mobile ? .34 : .51) + Math.sin(p.angle) * ring * (mobile ? .18 : .24);
+    const centerX = mobile ? (pair ? .65 : .34) : (pair ? .29 : .11);
+    const centerY = mobile ? (pair ? .45 : .29) : (pair ? .58 : .42);
+    const size = mobile ? Math.min(width * .20, 76) : Math.min(width * .07, 112);
+    const point = speechBubblePosition(p, pair);
+    x = centerX + point.x * size / width;
+    y = centerY + point.y * size / height;
   }
   return { x: x * width, y: y * height };
+}
+
+function areaIconPosition(p) {
+  const t = p.ambientX;
+  const v = p.ambientY;
+  const jitter = (p.radius - .5) * .035;
+  if (p.group === 0) {
+    // Duas cabeças e um arco de ombros: pessoas e escuta.
+    if (v < .38) {
+      const left = v < .19;
+      const angle = t * Math.PI * 2;
+      return { x: (left ? -.39 : .39) + Math.cos(angle) * .22,
+        y: -.46 + Math.sin(angle) * .22 + jitter };
+    }
+    const angle = Math.PI + t * Math.PI;
+    return { x: Math.cos(angle) * .92, y: .29 + Math.sin(angle) * .48 + jitter };
+  }
+  if (p.group === 1) {
+    // Engrenagem de oito dentes e miolo circular: rotina e operação.
+    const angle = t * Math.PI * 2;
+    const tooth = Math.cos(angle * 8) > .67;
+    const radius = v < .22 ? .34 : (tooth ? .91 : .74);
+    return { x: Math.cos(angle) * radius + jitter,
+      y: Math.sin(angle) * radius + jitter };
+  }
+  // Colchetes angulares e barra: desenvolvimento de sistemas.
+  const stroke = Math.min(2, Math.floor(v * 3));
+  if (stroke === 0) {
+    return { x: -.25 - (1 - Math.abs(t * 2 - 1)) * .50,
+      y: t * 1.5 - .75 + jitter };
+  }
+  if (stroke === 1) {
+    return { x: .25 + (1 - Math.abs(t * 2 - 1)) * .50,
+      y: t * 1.5 - .75 + jitter };
+  }
+  return { x: -.20 + t * .40, y: .78 - t * 1.56 + jitter };
+}
+
+function speechBubblePosition(p, pair) {
+  const tailSide = pair ? -1 : 1;
+  if (p.ambientY < .16) {
+    const t = p.ambientX;
+    return { x: tailSide * (.37 + t * .32), y: .61 + t * .35 };
+  }
+  return { x: Math.cos(p.angle) * .9,
+    y: Math.sin(p.angle) * .66 + (p.radius - .5) * .025 };
+}
+
+function sceneAnchor(p, stage, mobile) {
+  if (stage === 0) return { x: mobile ? .66 : .78, y: mobile ? .26 : .49 };
+  if (stage === 1) return { x: mobile ? .50 : .195, y: mobile ? .47 : .515 };
+  if (stage === 2) {
+    const centers = mobile
+      ? [[.77, .20], [.77, .45], [.77, .70]]
+      : [[.14, .23], [.14, .50], [.14, .77]];
+    return { x: centers[p.group][0], y: centers[p.group][1] };
+  }
+  return mobile
+    ? { x: p.pair ? .65 : .34, y: p.pair ? .45 : .29 }
+    : { x: p.pair ? .29 : .11, y: p.pair ? .58 : .42 };
 }
 
 function updateScrollPhase() {
@@ -281,6 +364,15 @@ function draw() {
     const to = scenePosition(p, stage + 1, isMobile);
     let x = from.x * (1 - mix) + to.x * mix;
     let y = from.y * (1 - mix) + to.y * mix;
+    if (p.cloud && !reduceMotion.matches) {
+      const a = sceneAnchor(p, stage, isMobile);
+      const b = sceneAnchor(p, stage + 1, isMobile);
+      const anchorX = (a.x * (1 - mix) + b.x * mix) * width;
+      const anchorY = (a.y * (1 - mix) + b.y * mix) * height;
+      const depth = 1 + Math.sin(frame * .008 + p.group * .8) * .035;
+      x = anchorX + (x - anchorX) * depth;
+      y = anchorY + (y - anchorY) * depth;
+    }
     const drift = reduceMotion.matches ? 0 : Math.sin(frame * .004 * p.speed + p.phase) * 3;
     const fade = reduceMotion.matches ? 1 : .9 + Math.sin(frame * .008 * p.speed + p.phase) * .1;
     x += drift;
@@ -291,13 +383,13 @@ function draw() {
       const dx = x - pointer.x;
       const dy = y - pointer.y;
       const distance = Math.max(1, Math.hypot(dx, dy));
-      const influence = pointer.strength * Math.exp(-((distance / 125) ** 2));
-      const ripple = Math.sin(distance * .055 - frame * .09) * 8 * influence;
-      const eddy = Math.cos(distance * .04 - frame * .065) * 2 * influence;
+      const influence = pointer.strength * Math.exp(-((distance / 92) ** 2));
+      const ripple = Math.sin(distance * .055 - frame * .055) * 2 * influence;
+      const eddy = Math.cos(distance * .04 - frame * .045) * .35 * influence;
       const targetX = dx / distance * ripple - dy / distance * eddy;
       const targetY = dy / distance * ripple + dx / distance * eddy;
-      p.velocityX = (p.velocityX + (targetX - p.offsetX) * .075) * .78;
-      p.velocityY = (p.velocityY + (targetY - p.offsetY) * .075) * .78;
+      p.velocityX = (p.velocityX + (targetX - p.offsetX) * .045) * .76;
+      p.velocityY = (p.velocityY + (targetY - p.offsetY) * .045) * .76;
       p.offsetX += p.velocityX;
       p.offsetY += p.velocityY;
     }
