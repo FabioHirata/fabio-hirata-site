@@ -57,7 +57,7 @@ a:focus-visible, button:focus-visible {
   text-decoration: none;
   white-space: nowrap;
 }
-.wordmark span { color: var(--violet); font-size: 22px; line-height: 0; }
+.wordmark span:last-child { color: var(--violet); font-size: 22px; line-height: 0; }
 .header-right { display: flex; align-items: center; gap: clamp(30px, 5vw, 92px); }
 .location, .language-nav { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 .location { color: var(--muted); }
