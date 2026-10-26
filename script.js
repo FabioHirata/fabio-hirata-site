@@ -191,7 +191,7 @@ function resizeCanvas() {
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   const rand = random(1407);
   const isMobile = width < 760;
-  const count = isMobile ? 480 : 1300;
+  const count = isMobile ? 320 : 650;
   particles = Array.from({ length: count }, (_, index) => {
     const cloud = index < count * .9;
     const angle = rand() * Math.PI * 2;
@@ -206,7 +206,8 @@ function resizeCanvas() {
       radius: radius * lobe,
       ambientX: rand(),
       ambientY: rand(),
-      size: cloud ? 1 + rand() * 1.4 : .9 + rand() * 1.4,
+      z: rand() + rand() - 1,
+      size: cloud ? 1.8 + rand() * 2.5 : 1.2 + rand() * 1.6,
       color: palette[Math.floor(rand() * palette.length)],
       opacity: cloud ? .35 + rand() * .65 : .12 + rand() * .32,
       phase: rand() * Math.PI * 2,
@@ -218,6 +219,7 @@ function resizeCanvas() {
       velocityY: 0
     };
   });
+  particles.sort((a, b) => a.z - b.z);
   draw();
 }
 
@@ -250,19 +252,19 @@ function scenePosition(p, stage, mobile) {
   } else if (stage === 2) {
     // As três áreas aparecem como pessoas, engrenagem e código.
     const centers = mobile
-      ? [[.77, .20], [.77, .45], [.77, .70]]
-      : [[.14, .23], [.14, .50], [.14, .77]];
+      ? [[.72, .20], [.72, .45], [.72, .70]]
+      : [[.15, .23], [.15, .50], [.15, .77]];
     const center = centers[p.group];
     const point = areaIconPosition(p);
-    const scale = mobile ? Math.min(width * .17, 62) : Math.min(width * .065, 104);
+    const scale = mobile ? Math.min(width * .23, 82) : Math.min(width * .11, 145);
     x = center[0] + point.x * scale / width;
     y = center[1] + point.y * scale / height;
   } else {
     // Conversa: dois balões de fala voltados um para o outro.
     const pair = p.pair;
-    const centerX = mobile ? (pair ? .65 : .34) : (pair ? .29 : .11);
-    const centerY = mobile ? (pair ? .45 : .29) : (pair ? .58 : .42);
-    const size = mobile ? Math.min(width * .20, 76) : Math.min(width * .07, 112);
+    const centerX = mobile ? (pair ? .65 : .34) : .14;
+    const centerY = mobile ? (pair ? .45 : .29) : (pair ? .66 : .36);
+    const size = mobile ? Math.min(width * .22, 82) : Math.min(width * .07, 110);
     const point = speechBubblePosition(p, pair);
     x = centerX + point.x * size / width;
     y = centerY + point.y * size / height;
@@ -321,13 +323,13 @@ function sceneAnchor(p, stage, mobile) {
   if (stage === 1) return { x: mobile ? .50 : .195, y: mobile ? .47 : .515 };
   if (stage === 2) {
     const centers = mobile
-      ? [[.77, .20], [.77, .45], [.77, .70]]
-      : [[.14, .23], [.14, .50], [.14, .77]];
+      ? [[.72, .20], [.72, .45], [.72, .70]]
+      : [[.15, .23], [.15, .50], [.15, .77]];
     return { x: centers[p.group][0], y: centers[p.group][1] };
   }
   return mobile
     ? { x: p.pair ? .65 : .34, y: p.pair ? .45 : .29 }
-    : { x: p.pair ? .29 : .11, y: p.pair ? .58 : .42 };
+    : { x: .14, y: p.pair ? .66 : .36 };
 }
 
 function updateScrollPhase() {
@@ -364,14 +366,16 @@ function draw() {
     const to = scenePosition(p, stage + 1, isMobile);
     let x = from.x * (1 - mix) + to.x * mix;
     let y = from.y * (1 - mix) + to.y * mix;
-    if (p.cloud && !reduceMotion.matches) {
+    let perspective = 1;
+    if (p.cloud) {
       const a = sceneAnchor(p, stage, isMobile);
       const b = sceneAnchor(p, stage + 1, isMobile);
       const anchorX = (a.x * (1 - mix) + b.x * mix) * width;
       const anchorY = (a.y * (1 - mix) + b.y * mix) * height;
-      const depth = 1 + Math.sin(frame * .008 + p.group * .8) * .035;
-      x = anchorX + (x - anchorX) * depth;
-      y = anchorY + (y - anchorY) * depth;
+      const breath = reduceMotion.matches ? 0 : Math.sin(frame * .006 + p.group * .8) * .18;
+      perspective = 1 / (1 - (p.z + breath) * .12);
+      x = anchorX + (x - anchorX) * perspective + p.z * 3;
+      y = anchorY + (y - anchorY) * perspective - p.z * 2;
     }
     const drift = reduceMotion.matches ? 0 : Math.sin(frame * .004 * p.speed + p.phase) * 3;
     const fade = reduceMotion.matches ? 1 : .9 + Math.sin(frame * .008 * p.speed + p.phase) * .1;
@@ -400,9 +404,10 @@ function draw() {
     ctx.strokeStyle = p.color;
     ctx.lineWidth = .9;
     ctx.beginPath();
-    ctx.moveTo(0, -p.size);
-    ctx.lineTo(p.size * .85, p.size * .7);
-    ctx.lineTo(-p.size * .85, p.size * .7);
+    const size = p.size * perspective;
+    ctx.moveTo(0, -size);
+    ctx.lineTo(size * .85, size * .7);
+    ctx.lineTo(-size * .85, size * .7);
     ctx.closePath();
     ctx.stroke();
     ctx.restore();
