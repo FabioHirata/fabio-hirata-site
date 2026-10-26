@@ -16,17 +16,17 @@ Acesse `http://localhost:8765/`. Os caminhos dos arquivos são relativos, para f
 
 - `index.html`: conteúdo base em português e estrutura semântica.
 - `styles.css`: layout responsivo e cores.
-- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. Os triângulos delineados mudam de formação ao rolar a página e reagem de forma sutil ao cursor. A animação para quando a página sai de vista ou quando a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
+- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. A forma acompanha as seções: percurso na trajetória, três núcleos nas áreas de atuação e duas órbitas na conversa. A constelação permanece visível durante a rolagem; a animação para quando a página sai de vista ou a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
+- `site-config.js`: contatos públicos confirmados.
 - `favicon.svg`: símbolo geométrico próprio.
 
 ## Antes de publicar
 
-1. Escolher e confirmar um canal público de contato. Por enquanto a página informa que ele está em revisão e não contém link de contato.
-2. Revisar os textos pessoais e as três traduções com Fabio.
-3. A referência visual foi lida de `~/Downloads/DESIGN.md`, sem alterar esse arquivo. O site usa a paleta e o ritmo visual como inspiração, sem copiar marca ou textos.
-4. Decidir a URL de publicação. O repositório permanece privado até essa decisão.
+1. Revisar os textos pessoais e as três traduções com Fabio.
+2. A referência visual foi lida de `~/Downloads/DESIGN.md`, sem alterar esse arquivo. O site usa a paleta e o ritmo visual como inspiração, sem copiar marca ou textos.
+3. Decidir a URL de publicação. O repositório permanece privado até essa decisão.
 
-Os arquivos já estão na raiz do repositório privado. Para publicar depois, configure o GitHub Pages somente após revisar conteúdo, contato e visibilidade. Não é necessário processo de build.
+O email e o WhatsApp confirmados por Fabio estão em `site-config.js` e aparecem como links na página. Os arquivos já estão na raiz do repositório privado. Para publicar depois, configure o GitHub Pages somente após revisar conteúdo e visibilidade. Não é necessário processo de build.
 
 ## GitHub e trabalho local
 
