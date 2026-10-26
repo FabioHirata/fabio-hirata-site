@@ -42,8 +42,8 @@ Os rótulos 01/02/03 são transparentes e não recebem máscara do canvas. Linha
 ## Movimento no celular
 
 - **Inclinação:** botão explícito para ativar/desativar. A primeira leitura calibra a posição neutra; o sinal é limitado, suavizado e recalibrado quando a orientação da tela muda.
-- **Chacoalhada leve:** exige dois picos separados; afeta somente uma parte das partículas, com deslocamento máximo de 12 px e retorno suave. Intervalo mínimo de 2,6 segundos impede acumular impulsos.
-- **Toque:** ondulação discreta no fundo, disponível sem sensores. Eventos passivos não bloqueiam a rolagem. Arrastar, selecionar texto, tocar em links ou controles não dispara o efeito.
+- **Chacoalhada leve:** exige dois picos separados, mantendo o limiar de detecção original; dispersa um quarto das partículas em até 28 px, com saída suave e recomposição completa em 2 segundos. Intervalo mínimo de 2,6 segundos impede acumular impulsos.
+- **Toque:** onda de até 9 px por toque, mais ampla, que avança pelo fundo por 1,8 segundo, disponível sem sensores. No máximo duas ondas coexistem; a combinação com chacoalhada é limitada a 42 px. Eventos passivos não bloqueiam a rolagem. Arrastar, selecionar texto, tocar em links ou controles não dispara o efeito. Inclinação e mouse conservam a intensidade anterior.
 
 As permissões de orientação/movimento são solicitadas somente no clique do visitante. Há estados localizados para permissão negada, sensores ausentes, conexão inadequada e espera por dados. A negação não provoca pedidos automáticos repetidos. Nenhum dado de sensor é enviado ou gravado. Somente a preferência de idioma usa armazenamento local.
 
