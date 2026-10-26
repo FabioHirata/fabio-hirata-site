@@ -26,4 +26,8 @@ Acesse `http://localhost:8765/`. Os caminhos dos arquivos são relativos, para f
 3. A referência visual foi lida de `~/Downloads/DESIGN.md`, sem alterar esse arquivo. O site usa a paleta e o ritmo visual como inspiração, sem copiar marca ou textos.
 4. Decidir a URL de publicação. O repositório permanece privado até essa decisão.
 
-Para publicar depois, copie os arquivos do projeto para a raiz do repositório ou para a pasta configurada no GitHub Pages. Não é necessário processo de build.
+Os arquivos já estão na raiz do repositório privado. Para publicar depois, configure o GitHub Pages somente após revisar conteúdo, contato e visibilidade. Não é necessário processo de build.
+
+## GitHub e trabalho local
+
+Os arquivos desta versão estão no repositório privado `FabioHirata/fabio-hirata-site`, branch `main`. Esta pasta está aberta no VS Code, mas o Git local do Mac ainda precisa de autenticação na conta pessoal para funcionar como checkout sincronizado. Após autenticar o Git, clone o repositório privado e continue as edições nessa cópia. Não use force push para conectar históricos diferentes.
