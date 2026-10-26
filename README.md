@@ -16,7 +16,7 @@ Acesse `http://localhost:8765/`. Os caminhos dos arquivos são relativos, para f
 
 - `index.html`: conteúdo base em português e estrutura semântica.
 - `styles.css`: layout responsivo e cores.
-- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. A forma acompanha as seções: percurso com marcos na trajetória, pessoas/engrenagem/código nas áreas de atuação e balões de fala na conversa. As figuras avançam e recuam lentamente e recebem só uma ondulação discreta do cursor. A constelação permanece visível durante a rolagem; a animação para quando a página sai de vista ou a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
+- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. A forma acompanha as seções: percurso com marcos na trajetória, pessoas/engrenagem/código nas áreas de atuação e balões de fala na conversa. Triângulos maiores e mais espaçados são projetados em camadas de profundidade, desenhadas de trás para frente; as figuras avançam e recuam lentamente e recebem só uma ondulação discreta do cursor. A constelação permanece visível durante a rolagem; a animação para quando a página sai de vista ou a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
 - `site-config.js`: contatos públicos confirmados.
 - `favicon.svg`: símbolo geométrico próprio.
 
