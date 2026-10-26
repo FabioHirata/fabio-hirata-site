@@ -9,7 +9,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body {
   margin: 0;
   background: var(--black);
@@ -134,7 +134,9 @@ h1 { max-width: 980px; margin-bottom: 37px; font-size: clamp(64px, 7.6vw, 126px)
   gap: 40px;
   padding-block: clamp(120px, 16vw, 260px);
 }
-.section-meta { display: flex; gap: 19px; padding-top: 13px; }
+.work { grid-template-columns: minmax(260px, 42%) 1fr; }
+.contact { grid-template-columns: minmax(260px, 46%) 1fr; }
+.section-meta { display: flex; align-items: baseline; align-self: start; gap: 19px; padding-top: 13px; }
 .section-number { color: var(--violet); }
 .section-main { max-width: 990px; }
 h2 { max-width: 900px; margin-bottom: 65px; font-size: clamp(46px, 6vw, 93px); }
@@ -144,6 +146,8 @@ h2 { max-width: 900px; margin-bottom: 65px; font-size: clamp(46px, 6vw, 93px); }
   font-size: clamp(16px, 1.4vw, 19px);
   line-height: 1.75;
 }
+.credentials { display: flex; flex-wrap: wrap; gap: 12px 34px; margin-top: 48px; }
+.credentials p { margin: 0; color: var(--muted); font-size: 13px; letter-spacing: .01em; }
 .areas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(25px, 4vw, 76px); margin-top: 100px; }
 .area-symbol { display: block; margin-bottom: 27px; font-size: 26px; line-height: 1; }
 .violet { color: var(--violet); }
@@ -194,6 +198,7 @@ body[lang="ja"] .eyebrow, body[lang="ja"] .section-meta { letter-spacing: .08em;
   .hero-index { bottom: 26px; }
   .section { display: block; padding-block: 105px; }
   .section-meta { margin-bottom: 60px; padding: 0; }
+  .work .section-meta, .contact .section-meta { margin-bottom: 300px; }
   h2 { margin-bottom: 40px; font-size: clamp(45px, 10vw, 72px); }
   .body-columns { grid-template-columns: 1fr; gap: 4px; }
   .areas { grid-template-columns: 1fr; gap: 48px; margin-top: 60px; }
@@ -216,3 +221,9 @@ body[lang="ja"] .eyebrow, body[lang="ja"] .section-meta { letter-spacing: .08em;
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.motion-controls { margin-top: 28px; max-width: 380px; }
+#motion-toggle { border: 0; padding: 10px 0; background: transparent; color: #bbb; font: inherit; font-size: 12px; font-weight: 500; text-align: left; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--violet); }
+#motion-toggle:hover:not(:disabled) { color: var(--white); }
+#motion-toggle:disabled { cursor: default; color: var(--muted); text-decoration: none; }
+#motion-status { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
