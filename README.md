@@ -16,7 +16,7 @@ Acesse `http://localhost:8765/`. Os caminhos dos arquivos são relativos, para f
 
 - `index.html`: conteúdo base em português e estrutura semântica.
 - `styles.css`: layout responsivo e cores.
-- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. A forma acompanha as seções: percurso na trajetória, três núcleos nas áreas de atuação e duas órbitas na conversa. A constelação permanece visível durante a rolagem; a animação para quando a página sai de vista ou a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
+- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. A forma acompanha as seções: percurso com marcos na trajetória, pessoas/engrenagem/código nas áreas de atuação e balões de fala na conversa. As figuras avançam e recuam lentamente e recebem só uma ondulação discreta do cursor. A constelação permanece visível durante a rolagem; a animação para quando a página sai de vista ou a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
 - `site-config.js`: contatos públicos confirmados.
 - `favicon.svg`: símbolo geométrico próprio.
 
@@ -27,6 +27,8 @@ Acesse `http://localhost:8765/`. Os caminhos dos arquivos são relativos, para f
 3. Decidir a URL de publicação. O repositório permanece privado até essa decisão.
 
 O email e o WhatsApp confirmados por Fabio estão em `site-config.js` e aparecem como links na página. Os arquivos já estão na raiz do repositório privado. Para publicar depois, configure o GitHub Pages somente após revisar conteúdo e visibilidade. Não é necessário processo de build.
+
+O site não inclui foto pessoal, conforme a decisão mais recente de Fabio. A grafia do nome em japonês é `平田 ファビオ`.
 
 ## GitHub e trabalho local
 
