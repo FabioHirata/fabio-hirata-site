@@ -26,6 +26,10 @@ const translations = {
     contactTitle: "Boas conversas começam com boas perguntas.",
     contactText: "Estou pesquisando ideias para um projeto pessoal e aprendendo com quem vive desafios concretos no trabalho. Se nos encontrarmos para conversar, minha intenção é ouvir e entender.",
     contactPending: "Canal público de contato em revisão.",
+    emailLabel: "Email",
+    emailAria: "Enviar email para Fabio Hirata",
+    whatsappLabel: "WhatsApp",
+    whatsappAria: "Conversar com Fabio Hirata pelo WhatsApp",
     footer: "Feito com cuidado em Fukui, Japão.",
     backTop: "Voltar ao início"
   },
@@ -56,6 +60,10 @@ const translations = {
     contactTitle: "よい対話は、よい問いから。",
     contactText: "個人プロジェクトのためにアイデアを調べ、現場で働く方々の経験から学んでいます。お話しする機会があれば、まずは丁寧に聞き、理解したいと考えています。",
     contactPending: "公開用の連絡先は現在検討中です。",
+    emailLabel: "メール",
+    emailAria: "ファビオ・ヒラタにメールを送る",
+    whatsappLabel: "WhatsApp",
+    whatsappAria: "WhatsAppでファビオ・ヒラタに連絡する",
     footer: "福井で、丁寧につくりました。",
     backTop: "ページ上部へ"
   },
@@ -86,6 +94,10 @@ const translations = {
     contactTitle: "Good conversations start with good questions.",
     contactText: "I'm exploring ideas for a personal project and learning from people who face practical challenges at work. If we have a chance to talk, I'd like to listen and understand.",
     contactPending: "Public contact details are under review.",
+    emailLabel: "Email",
+    emailAria: "Email Fabio Hirata",
+    whatsappLabel: "WhatsApp",
+    whatsappAria: "Contact Fabio Hirata on WhatsApp",
     footer: "Made with care in Fukui, Japan.",
     backTop: "Back to top"
   }
@@ -118,6 +130,26 @@ document.querySelectorAll(".lang-button").forEach((button) => {
 });
 document.getElementById("year").textContent = String(new Date().getFullYear());
 
+const publicProfile = window.siteConfig || {};
+const email = String(publicProfile.publicEmail || "").trim();
+const whatsappDigits = String(publicProfile.whatsappDigits || "").trim();
+const emailLink = document.getElementById("email-link");
+const whatsappLink = document.getElementById("whatsapp-link");
+if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  emailLink.href = `mailto:${email}`;
+  document.getElementById("email-value").textContent = email;
+  emailLink.hidden = false;
+}
+if (/^[1-9]\d{7,14}$/.test(whatsappDigits)) {
+  whatsappLink.href = `https://wa.me/${whatsappDigits}`;
+  document.getElementById("whatsapp-value").textContent =
+    String(publicProfile.whatsappDisplay || whatsappDigits);
+  whatsappLink.hidden = false;
+}
+const hasContact = !emailLink.hidden || !whatsappLink.hidden;
+document.getElementById("contact-links").hidden = !hasContact;
+document.querySelector(".contact-status").hidden = hasContact;
+
 const canvas = document.getElementById("constellation");
 const ctx = canvas.getContext("2d");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -129,7 +161,7 @@ let height = 0;
 let phase = 0;
 let targetPhase = 0;
 let mainVisible = true;
-const pointer = { x: -1000, y: -1000 };
+const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, active: false, strength: 0 };
 const sections = ["top", "sobre", "interesses", "conversa"].map((id) => document.getElementById(id));
 
 function random(seed) {
@@ -159,6 +191,8 @@ function resizeCanvas() {
     const palette = ["#8052ff", "#ffb829", "#15846e", "#d968c2", "#477cff", "#b8a4ff"];
     return {
       cloud,
+      group: index % 3,
+      pair: index % 2,
       angle,
       radius: radius * lobe,
       ambientX: rand(),
@@ -168,50 +202,73 @@ function resizeCanvas() {
       opacity: cloud ? .35 + rand() * .65 : .12 + rand() * .32,
       phase: rand() * Math.PI * 2,
       speed: .3 + rand() * .7,
-      rotation: rand() * Math.PI * 2
+      rotation: rand() * Math.PI * 2,
+      offsetX: 0,
+      offsetY: 0,
+      velocityX: 0,
+      velocityY: 0
     };
   });
   draw();
 }
 
 function scenePosition(p, stage, mobile) {
-  if (!p.cloud || stage === 3) {
+  if (!p.cloud) {
     return { x: p.ambientX * width, y: p.ambientY * height };
   }
-  const scenes = mobile
-    ? [
-        { x: .66, y: .26, rx: .37, ry: .23, twist: 0 },
-        { x: .25, y: .43, rx: .37, ry: .29, twist: .8 },
-        { x: .7, y: .53, rx: .36, ry: .31, twist: -1.1 }
-      ]
-    : [
-        { x: .78, y: .49, rx: .29, ry: .4, twist: 0 },
-        { x: .24, y: .5, rx: .29, ry: .39, twist: .8 },
-        { x: .77, y: .5, rx: .31, ry: .39, twist: -1.1 }
-      ];
-  const s = scenes[stage];
-  const a = p.angle + s.twist * (1 - p.radius);
-  const r = stage === 2 ? .48 + p.radius * .52 : p.radius;
-  return {
-    x: (s.x + Math.cos(a) * r * s.rx) * width,
-    y: (s.y + Math.sin(a) * r * s.ry) * height
-  };
+  let x;
+  let y;
+  if (stage === 0) {
+    // Introdução: nuvem orgânica.
+    x = (mobile ? .66 : .78) + Math.cos(p.angle) * p.radius * (mobile ? .37 : .29);
+    y = (mobile ? .26 : .49) + Math.sin(p.angle) * p.radius * (mobile ? .23 : .4);
+  } else if (stage === 1) {
+    // Trajetória: percurso contínuo entre contextos.
+    const t = p.ambientX;
+    x = (mobile ? .08 : .035) + t * (mobile ? .84 : .3);
+    y = (mobile ? .52 : .72) - t * (mobile ? .34 : .43)
+      + Math.sin(t * Math.PI * 2) * .075 + (p.ambientY - .5) * (mobile ? .19 : .23);
+  } else if (stage === 2) {
+    // Áreas: três núcleos para pessoas, operações e tecnologia.
+    const centers = mobile
+      ? [[.28, .21], [.74, .28], [.5, .53]]
+      : [[.08, .28], [.25, .4], [.14, .66]];
+    const center = centers[p.group];
+    x = center[0] + Math.cos(p.angle) * p.radius * (mobile ? .15 : .08);
+    y = center[1] + Math.sin(p.angle) * p.radius * (mobile ? .12 : .13);
+  } else {
+    // Conversa: duas órbitas que se encontram.
+    const pair = p.pair;
+    const centerX = mobile ? (pair ? .65 : .37) : (pair ? .27 : .11);
+    const ring = .88 + (p.radius - .5) * .14;
+    x = centerX + Math.cos(p.angle) * ring * (mobile ? .22 : .11);
+    y = (mobile ? .34 : .51) + Math.sin(p.angle) * ring * (mobile ? .18 : .24);
+  }
+  return { x: x * width, y: y * height };
 }
 
 function updateScrollPhase() {
-  if (reduceMotion.matches) return;
-  const anchors = sections.map((section) => section.offsetTop);
-  const y = window.scrollY + height * .32;
   let next = 0;
-  for (let i = 0; i < anchors.length - 1; i++) {
-    if (y >= anchors[i]) next = i;
-    if (y >= anchors[i] && y < anchors[i + 1]) {
-      next = i + (y - anchors[i]) / (anchors[i + 1] - anchors[i]);
+  for (let i = 0; i < sections.length - 1; i++) {
+    const midpoint = sections[i + 1].offsetTop - height * .5;
+    const start = midpoint - height * .28;
+    const end = midpoint + height * .28;
+    if (window.scrollY >= end) {
+      next = i + 1;
+    } else if (window.scrollY > start) {
+      const t = (window.scrollY - start) / (end - start);
+      next = i + t * t * (3 - 2 * t);
+      break;
+    } else {
       break;
     }
   }
-  if (y >= anchors[anchors.length - 1]) next = 3;
   targetPhase = Math.max(0, Math.min(3, next));
+  document.body.dataset.scene = ["intro", "trajectory", "areas", "conversation"][Math.round(targetPhase)];
+  if (reduceMotion.matches) {
+    phase = Math.round(targetPhase);
+    draw();
+  }
 }
 
 function draw() {
@@ -219,8 +276,6 @@ function draw() {
   const isMobile = width < 760;
   const stage = Math.min(2, Math.floor(phase));
   const mix = Math.max(0, Math.min(1, phase - stage));
-  const opacityByScene = [1, .47, .48, .16];
-  const sceneOpacity = opacityByScene[stage] * (1 - mix) + opacityByScene[stage + 1] * mix;
   particles.forEach((p) => {
     const from = scenePosition(p, stage, isMobile);
     const to = scenePosition(p, stage + 1, isMobile);
@@ -230,20 +285,26 @@ function draw() {
     const fade = reduceMotion.matches ? 1 : .9 + Math.sin(frame * .008 * p.speed + p.phase) * .1;
     x += drift;
     y -= drift * .6;
-    if (!reduceMotion.matches) {
+    if (reduceMotion.matches) {
+      p.offsetX = p.offsetY = p.velocityX = p.velocityY = 0;
+    } else {
       const dx = x - pointer.x;
       const dy = y - pointer.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance < 110 && distance > 0) {
-        const force = ((110 - distance) / 110) ** 2 * 18;
-        x += dx / distance * force;
-        y += dy / distance * force;
-      }
+      const distance = Math.max(1, Math.hypot(dx, dy));
+      const influence = pointer.strength * Math.exp(-((distance / 125) ** 2));
+      const ripple = Math.sin(distance * .055 - frame * .09) * 8 * influence;
+      const eddy = Math.cos(distance * .04 - frame * .065) * 2 * influence;
+      const targetX = dx / distance * ripple - dy / distance * eddy;
+      const targetY = dy / distance * ripple + dx / distance * eddy;
+      p.velocityX = (p.velocityX + (targetX - p.offsetX) * .075) * .78;
+      p.velocityY = (p.velocityY + (targetY - p.offsetY) * .075) * .78;
+      p.offsetX += p.velocityX;
+      p.offsetY += p.velocityY;
     }
     ctx.save();
-    ctx.translate(x, y);
+    ctx.translate(x + p.offsetX, y + p.offsetY);
     ctx.rotate(p.rotation);
-    ctx.globalAlpha = p.opacity * fade * (p.cloud ? sceneOpacity : .42);
+    ctx.globalAlpha = p.opacity * fade * (p.cloud ? 1 : .42);
     ctx.strokeStyle = p.color;
     ctx.lineWidth = .9;
     ctx.beginPath();
@@ -258,6 +319,9 @@ function draw() {
 
 function animate() {
   frame++;
+  pointer.x += (pointer.targetX - pointer.x) * .14;
+  pointer.y += (pointer.targetY - pointer.y) * .14;
+  pointer.strength += ((pointer.active ? 1 : 0) - pointer.strength) * .08;
   if (frame % 2 === 0) {
     phase += (targetPhase - phase) * .075;
     draw();
@@ -266,7 +330,7 @@ function animate() {
 }
 function syncMotion() {
   cancelAnimationFrame(rafId);
-  if (reduceMotion.matches) phase = 0;
+  if (reduceMotion.matches) phase = Math.round(targetPhase);
   draw();
   if (!reduceMotion.matches && !document.hidden && mainVisible) rafId = requestAnimationFrame(animate);
 }
@@ -275,8 +339,17 @@ updateScrollPhase();
 syncMotion();
 window.addEventListener("resize", () => { resizeCanvas(); updateScrollPhase(); }, { passive: true });
 window.addEventListener("scroll", updateScrollPhase, { passive: true });
-window.addEventListener("pointermove", (event) => { pointer.x = event.clientX; pointer.y = event.clientY; }, { passive: true });
-window.addEventListener("pointerleave", () => { pointer.x = -1000; pointer.y = -1000; });
+window.addEventListener("pointermove", (event) => {
+  if (!pointer.active) {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  }
+  pointer.targetX = event.clientX;
+  pointer.targetY = event.clientY;
+  pointer.active = true;
+}, { passive: true });
+window.addEventListener("pointerleave", () => { pointer.active = false; });
+window.addEventListener("blur", () => { pointer.active = false; });
 document.addEventListener("visibilitychange", syncMotion);
 reduceMotion.addEventListener("change", () => { updateScrollPhase(); syncMotion(); });
 new IntersectionObserver(([entry]) => {
