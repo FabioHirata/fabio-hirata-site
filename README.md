@@ -1,35 +1,38 @@
-# Site pessoal — Fabio Hirata
+# Fabio Hirata
 
-Primeira versão local de um site estático, preparada para futura hospedagem no GitHub Pages. Não há backend, dependências, analytics, fontes externas, formulário ou chamadas a APIs.
+**Entre pessoas, operações e tecnologia.**  
+平田 ファビオ · Fukui, Japão
 
-## Visualização local
+Sou brasileiro, vivo no Japão desde 2007 e moro em Fukui desde 2012. Gosto de entender como as coisas funcionam no dia a dia e de aproximar pessoas de soluções úteis.
 
-Na pasta do projeto:
+Desde 2016, atuo na gestão de pessoas e na coordenação de operações. Minha experiência também passa por suporte e comunicação em contextos com trabalhadores estrangeiros, além de desenvolvimento de sistemas.
 
-```sh
-python3 -m http.server 8765
-```
+Tenho interesse em escuta, trabalho cotidiano e sistemas simples que possam ajudar comunidades e pequenos negócios. Atualmente, pesquiso ideias para um projeto pessoal, aprendendo com quem vive desafios concretos no trabalho.
 
-Acesse `http://localhost:8765/`. Os caminhos dos arquivos são relativos, para funcionar também em GitHub Pages de projeto.
+### Formação e idiomas
 
-## Estrutura
+- Ciência da Computação — UNIP
+- Japonês: JLPT N3 · Em preparação para o N2
+- Inglês: TOEIC 905 pontos
 
-- `index.html`: conteúdo base em português e estrutura semântica.
-- `styles.css`: layout responsivo e cores.
-- `script.js`: traduções para português, japonês e inglês; seletor de idioma; constelação procedural. A forma acompanha as seções: percurso com marcos na trajetória, pessoas/engrenagem/código nas áreas de atuação e balões de fala na conversa. Triângulos maiores e mais espaçados são projetados em camadas de profundidade, desenhadas de trás para frente; as figuras avançam e recuam lentamente e recebem só uma ondulação discreta do cursor. A constelação permanece visível durante a rolagem; a animação para quando a página sai de vista ou a preferência por movimento reduzido está ativa. A escolha de idioma fica somente no armazenamento local do navegador.
-- `site-config.js`: contatos públicos confirmados.
-- `favicon.svg`: símbolo geométrico próprio.
+### Vamos conversar
 
-## Antes de publicar
+[Email](mailto:fabiohiratapl@gmail.com) · [WhatsApp](https://wa.me/818036446064) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/)
 
-1. Revisar os textos pessoais e as três traduções com Fabio.
-2. A referência visual foi lida de `~/Downloads/DESIGN.md`, sem alterar esse arquivo. O site usa a paleta e o ritmo visual como inspiração, sem copiar marca ou textos.
-3. Decidir a URL de publicação. O repositório permanece privado até essa decisão.
+<details>
+<summary>日本語</summary>
 
-O email e o WhatsApp confirmados por Fabio estão em `site-config.js` e aparecem como links na página. Os arquivos já estão na raiz do repositório privado. Para publicar depois, configure o GitHub Pages somente após revisar conteúdo e visibilidade. Não é necessário processo de build.
+**平田 ファビオ**です。ブラジル出身で、2007年から日本、2012年から福井で暮らしています。2016年から人材マネジメントと業務運営の調整に携わり、外国人労働者に関わるサポートやコミュニケーション、システム開発も経験してきました。人の話を聞き、日々の仕事を理解し、地域や小さな事業に役立つ仕組みを考えることに関心があります。
 
-O site não inclui foto pessoal, conforme a decisão mais recente de Fabio. A grafia do nome em japonês é `平田 ファビオ`.
+コンピュータサイエンス — UNIP。日本語はJLPT N3取得、N2に向けて学習中。英語はTOEIC 905点。
 
-## GitHub e trabalho local
+</details>
 
-Os arquivos desta versão estão no repositório privado `FabioHirata/fabio-hirata-site`, branch `main`. Esta pasta está aberta no VS Code, mas o Git local do Mac ainda precisa de autenticação na conta pessoal para funcionar como checkout sincronizado. Após autenticar o Git, clone o repositório privado e continue as edições nessa cópia. Não use force push para conectar históricos diferentes.
+<details>
+<summary>English</summary>
+
+I'm **Fabio Hirata**, a Brazilian living in Japan since 2007 and in Fukui since 2012. Since 2016, I have worked in people management and operations coordination. My experience also includes support and communication in settings involving foreign workers, as well as systems development. I'm interested in listening, understanding everyday work and building useful systems for communities and small businesses.
+
+Computer Science — UNIP. Japanese: JLPT N3, studying for N2. English: TOEIC score of 905.
+
+</details>

@@ -1,5 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#000"/>
-  <path d="M32 11 56 53H8Z" fill="none" stroke="#8052ff" stroke-width="5"/>
-  <circle cx="32" cy="35" r="4" fill="#ffb829"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>FH.</title>
+  <rect width="32" height="32" fill="#000"/>
+  <g fill="#fff">
+    <path d="M3 7h9v3H6v5h5v3H6v7H3Z"/>
+    <path d="M14 7h3v8h6V7h3v18h-3v-7h-6v7h-3Z"/>
+    <circle cx="29" cy="23.4" r="1.6"/>
+  </g>
 </svg>
