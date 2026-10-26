@@ -8,6 +8,7 @@
     <title>Fabio Hirata — Pessoas, operações e tecnologia</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
+    <script src="./site-config.js" defer></script>
     <script src="./script.js" defer></script>
   </head>
   <body>
@@ -89,6 +90,18 @@
           <h2 id="contact-title" data-i18n="contactTitle">Boas conversas começam com boas perguntas.</h2>
           <p class="contact-copy" data-i18n="contactText">Estou pesquisando ideias para um projeto pessoal e aprendendo com quem vive desafios concretos no trabalho. Se nos encontrarmos para conversar, minha intenção é ouvir e entender.</p>
           <p class="contact-status"><span class="status-dot" aria-hidden="true"></span><span data-i18n="contactPending">Canal público de contato em revisão.</span></p>
+          <div class="contact-links" id="contact-links" hidden>
+            <a id="email-link" class="contact-link" data-i18n-aria="emailAria" hidden>
+              <span class="contact-kind" data-i18n="emailLabel">Email</span>
+              <span class="contact-value" id="email-value"></span>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a id="whatsapp-link" class="contact-link" data-i18n-aria="whatsappAria" target="_blank" rel="noopener noreferrer" hidden>
+              <span class="contact-kind" data-i18n="whatsappLabel">WhatsApp</span>
+              <span class="contact-value" id="whatsapp-value"></span>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
