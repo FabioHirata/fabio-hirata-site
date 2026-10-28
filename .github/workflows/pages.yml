@@ -9,7 +9,7 @@ on:
       - script.js
       - motion.js
       - site-config.js
-      - favicon.svg
+      - favicon.png
       - .github/workflows/pages.yml
   workflow_dispatch:
 
@@ -37,7 +37,7 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir -p _site
-          cp index.html styles.css script.js motion.js site-config.js favicon.svg _site/
+          cp index.html styles.css script.js motion.js site-config.js favicon.png _site/
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
