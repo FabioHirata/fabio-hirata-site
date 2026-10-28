@@ -21,7 +21,7 @@ Abra `http://127.0.0.1:8765/`. Os caminhos são relativos, inclusive para GitHub
 - `script.js`: traduções, contatos e quatro cenas em canvas.
 - `motion.js`: inclinação, chacoalhada e toque opcionais, com ciclo de vida e permissões.
 - `site-config.js`: email, WhatsApp e LinkedIn confirmados por Fabio.
-- `favicon.svg`: monograma exato **FH.**, com ponto, desenhado em vetor sem fonte externa.
+- `favicon.png`: arte quadrada **FH** fornecida por Fabio, 512 × 512 px, com fundo preto, letras brancas e triângulo roxo.
 - `tests/`: testes executáveis com Node, sem bibliotecas adicionais.
 
 O site não contém fotos pessoais. O nome japonês é exatamente `平田 ファビオ`. Os textos incluem Japão desde 2007, Fukui desde 2012, gestão de pessoas e coordenação de operações desde 2016, Ciência da Computação — UNIP, JLPT N3 com preparação para N2 e TOEIC 905. Não afirmam conclusão de graduação, obtenção de N2 ou fluência.
@@ -83,7 +83,7 @@ Site: [https://fabiohirata.github.io/fabio-hirata-site/](https://fabiohirata.git
 
 Repositório: `FabioHirata/fabio-hirata-site`, branch `main`, público por autorização de Fabio. O histórico foi preservado. A publicação utiliza o GitHub Pages gratuito, sem domínio personalizado ou plano pago.
 
-O workflow `.github/workflows/pages.yml` executa os testes e publica um artefato com somente `index.html`, `styles.css`, `script.js`, `motion.js`, `site-config.js` e `favicon.svg`. Documentação técnica, testes, capturas de QA e arquivos temporários não fazem parte do site servido. Não há fotos ou segredos no projeto.
+O workflow `.github/workflows/pages.yml` executa os testes e publica um artefato com somente `index.html`, `styles.css`, `script.js`, `motion.js`, `site-config.js` e `favicon.png`. Documentação técnica, testes, capturas de QA e arquivos temporários não fazem parte do site servido. Não há fotos ou segredos no projeto.
 
 Alterações nos seis arquivos do site ou no workflow iniciam uma publicação pela branch `main`. Também é possível executar o workflow manualmente na aba Actions. Mudanças apenas na documentação não publicam uma nova versão do site.
 
