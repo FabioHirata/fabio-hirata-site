@@ -22,7 +22,7 @@ const translations = {
     location: "Fukui, Japão",
     heroEyebrow: "Uma apresentação pessoal",
     heroTitle: "Entre pessoas, operações e tecnologia.",
-    heroIntro: "Sou Fabio Hirata, brasileiro vivendo no Japão desde 2007. Gosto de entender como as coisas funcionam no dia a dia — e de aproximar pessoas de soluções úteis.",
+    heroIntro: "Sou Fabio Hirata, brasileiro vivendo no Japão desde 2007. Gosto de entender como as coisas funcionam no dia a dia e de aproximar pessoas de soluções úteis.",
     heroLink: "Um pouco sobre mim",
     aboutLabel: "TRAJETÓRIA",
     aboutTitle: "Uma trajetória feita de contextos diferentes.",
