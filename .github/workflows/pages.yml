@@ -33,6 +33,7 @@ jobs:
           node --check motion.js
           node --check site-config.js
           node --check contact.js
+          node tests/social.test.cjs
           node tests/contact.test.cjs
           node tests/motion.test.cjs
           node tests/animation.test.cjs

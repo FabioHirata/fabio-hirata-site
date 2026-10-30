@@ -52,11 +52,8 @@ const translations = {
     contactTitle: "Boas conversas começam com boas perguntas.",
     contactText: "Estou pesquisando ideias para um projeto pessoal e aprendendo com quem vive desafios concretos no trabalho. Se nos encontrarmos para conversar, minha intenção é ouvir e entender.",
     contactPending: "Canal público de contato em revisão.",
-    emailLabel: "Email",
-    emailAria: "Enviar email para Fabio Hirata",
-    linkedinLabel: "LinkedIn",
-    linkedinAction: "Perfil",
-    linkedinAria: "Ver perfil de Fabio Hirata no LinkedIn",
+    linkedinAria: "Ver perfil de Fabio Hirata no LinkedIn (abre em nova aba)",
+    githubAria: "Ver perfil de Fabio Hirata no GitHub (abre em nova aba)",
     footer: "Feito com cuidado em Fukui, Japão.",
     backTop: "Voltar ao início"
   },
@@ -113,11 +110,8 @@ const translations = {
     contactTitle: "よい対話は、よい問いから。",
     contactText: "個人プロジェクトのためにアイデアを調べ、現場で働く方々の経験から学んでいます。お話しする機会があれば、まずは丁寧に聞き、理解したいと考えています。",
     contactPending: "公開用の連絡先は現在検討中です。",
-    emailLabel: "メール",
-    emailAria: "平田 ファビオにメールを送る",
-    linkedinLabel: "LinkedIn",
-    linkedinAction: "プロフィール",
-    linkedinAria: "平田 ファビオのLinkedInプロフィールを見る",
+    linkedinAria: "平田 ファビオのLinkedInプロフィールを見る（新しいタブで開きます）",
+    githubAria: "平田 ファビオのGitHubプロフィールを見る（新しいタブで開きます）",
     footer: "福井で、丁寧につくりました。",
     backTop: "ページ上部へ"
   },
@@ -174,11 +168,8 @@ const translations = {
     contactTitle: "Good conversations start with good questions.",
     contactText: "I'm exploring ideas for a personal project and learning from people who face practical challenges at work. If we have a chance to talk, I'd like to listen and understand.",
     contactPending: "Public contact details are under review.",
-    emailLabel: "Email",
-    emailAria: "Email Fabio Hirata",
-    linkedinLabel: "LinkedIn",
-    linkedinAction: "Profile",
-    linkedinAria: "View Fabio Hirata's LinkedIn profile",
+    linkedinAria: "View Fabio Hirata's LinkedIn profile (opens in a new tab)",
+    githubAria: "View Fabio Hirata's GitHub profile (opens in a new tab)",
     footer: "Made with care in Fukui, Japan.",
     backTop: "Back to top"
   }
@@ -196,6 +187,9 @@ function setLanguage(language) {
   });
   document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
     element.setAttribute("aria-label", copy[element.dataset.i18nAria]);
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+    element.setAttribute("title", copy[element.dataset.i18nTitle]);
   });
   document.querySelectorAll(".lang-button").forEach((button) => {
     button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
@@ -218,14 +212,8 @@ document.querySelectorAll(".lang-button").forEach((button) => {
 document.getElementById("year").textContent = String(new Date().getFullYear());
 
 const publicProfile = window.siteConfig || {};
-const email = String(publicProfile.publicEmail || "").trim();
-const emailLink = document.getElementById("email-link");
 const linkedinLink = document.getElementById("linkedin-link");
-if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-  emailLink.href = `mailto:${email}`;
-  document.getElementById("email-value").textContent = email;
-  emailLink.hidden = false;
-}
+const githubLink = document.getElementById("github-link");
 try {
   const profile = new URL(String(publicProfile.linkedInUrl || ""));
   if (profile.protocol === "https:" &&
@@ -235,7 +223,15 @@ try {
     linkedinLink.hidden = false;
   }
 } catch (_) {}
-const hasContact = !emailLink.hidden || !linkedinLink.hidden;
+try {
+  const profile = new URL(String(publicProfile.githubUrl || ""));
+  if (profile.protocol === "https:" && profile.hostname === "github.com" &&
+      /^\/[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,38})\/?$/.test(profile.pathname)) {
+    githubLink.href = profile.origin + profile.pathname;
+    githubLink.hidden = false;
+  }
+} catch (_) {}
+const hasContact = !linkedinLink.hidden || !githubLink.hidden;
 document.getElementById("contact-links").hidden = !hasContact;
 document.querySelector(".contact-status").hidden = hasContact;
 

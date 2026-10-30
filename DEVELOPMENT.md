@@ -20,7 +20,7 @@ Abra `http://127.0.0.1:8765/`. Os caminhos são relativos, inclusive para GitHub
 - `styles.css`: composição responsiva, tipografia e cores.
 - `script.js`: traduções, contatos e quatro cenas em canvas.
 - `motion.js`: inclinação, chacoalhada e toque opcionais, com ciclo de vida e permissões.
-- `site-config.js`: email e LinkedIn confirmados por Fabio; endpoint do formulário Formspree.
+- `site-config.js`: LinkedIn e GitHub de Fabio; endpoint do formulário Formspree.
 - `favicon.png`: arte quadrada **FH** fornecida por Fabio, 512 × 512 px, com fundo preto, letras brancas e triângulo roxo.
 - `tests/`: testes executáveis com Node, sem bibliotecas adicionais.
 
@@ -115,3 +115,9 @@ O telefone e o WhatsApp foram removidos do código público e do README; o hist�
 Testes adicionais: `node --check contact.js` e `node tests/contact.test.cjs`.
 
 Endpoint configurado: `https://formspree.io/f/xyeepqzj`. Verificação visual e de entrega serão feitas no site publicado; o Chromium local não iniciou devido às restrições de socket do ambiente. Os testes Node de contato, idiomas, sensores e canvas passaram.
+
+## Links sociais (30/10/2026)
+
+Email público e mailto removidos do frontend e do README, sem reescrever o histórico. O formulário e seu destinatário não foram alterados. LinkedIn conserva a URL anterior; GitHub aponta para `https://github.com/FabioHirata`. Os dois links usam logos SVG locais monocromáticos, alvos de 48 × 48 px, foco visível e nomes/tooltips em PT/JA/EN com aviso de nova aba. Não há dependência ou rastreador novo.
+
+Validação: sintaxe dos quatro scripts e testes de contato, links sociais, movimento e animação passaram. Preview desktop conferido no navegador: logos reconhecíveis, links corretos, idiomas e teclado sem overflow. Não houve novo envio de formulário.
