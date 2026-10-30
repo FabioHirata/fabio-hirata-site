@@ -1,5 +1,13 @@
 const translations = {
   pt: {
+    formProviderPrivacy: "Privacidade do Formspree",
+    formName: "Nome",
+    formEmail: "E-mail",
+    formMessage: "Mensagem",
+    formSend: "Enviar mensagem",
+    formSending: "Enviando…",
+    formPrivacy: "Seu nome, e-mail e mensagem serão processados pelo Formspree e enviados a Fabio para responder ao contato. Não inclua dados sensíveis.",
+    formRedirect: "Você será levado ao Formspree para a verificação e confirmação do envio.",
     motion: {
       enable: "Ativar movimento do celular", disable: "Desativar movimento do celular", pendingButton: "Aguardando permissão…",
       idle: "Opcional: incline ou chacoalhe de leve. Toque no fundo para uma ondulação.",
@@ -46,8 +54,6 @@ const translations = {
     contactPending: "Canal público de contato em revisão.",
     emailLabel: "Email",
     emailAria: "Enviar email para Fabio Hirata",
-    whatsappLabel: "WhatsApp",
-    whatsappAria: "Conversar com Fabio Hirata pelo WhatsApp",
     linkedinLabel: "LinkedIn",
     linkedinAction: "Perfil",
     linkedinAria: "Ver perfil de Fabio Hirata no LinkedIn",
@@ -55,6 +61,14 @@ const translations = {
     backTop: "Voltar ao início"
   },
   ja: {
+    formProviderPrivacy: "Formspreeのプライバシーポリシー",
+    formName: "お名前",
+    formEmail: "メールアドレス",
+    formMessage: "お問い合わせ内容",
+    formSend: "送信する",
+    formSending: "送信中…",
+    formPrivacy: "お名前・メールアドレス・お問い合わせ内容はFormspreeで処理され、返信のためファビオに送信されます。機密情報は記入しないでください。",
+    formRedirect: "送信の確認・認証のため、Formspreeに移動します。",
     motion: {
       enable: "スマートフォンの動きを有効にする", disable: "スマートフォンの動きを無効にする", pendingButton: "許可を確認中…",
       idle: "任意の機能です。軽く傾けたり振ったりできます。背景をタップすると波紋が広がります。",
@@ -101,8 +115,6 @@ const translations = {
     contactPending: "公開用の連絡先は現在検討中です。",
     emailLabel: "メール",
     emailAria: "平田 ファビオにメールを送る",
-    whatsappLabel: "WhatsApp",
-    whatsappAria: "WhatsAppで平田 ファビオに連絡する",
     linkedinLabel: "LinkedIn",
     linkedinAction: "プロフィール",
     linkedinAria: "平田 ファビオのLinkedInプロフィールを見る",
@@ -110,6 +122,14 @@ const translations = {
     backTop: "ページ上部へ"
   },
   en: {
+    formProviderPrivacy: "Formspree privacy policy",
+    formName: "Name",
+    formEmail: "Email",
+    formMessage: "Message",
+    formSend: "Send message",
+    formSending: "Sending…",
+    formPrivacy: "Your name, email and message will be processed by Formspree and sent to Fabio to respond to your inquiry. Please do not include sensitive information.",
+    formRedirect: "You will be taken to Formspree for verification and delivery confirmation.",
     motion: {
       enable: "Enable phone motion", disable: "Disable phone motion", pendingButton: "Waiting for permission…",
       idle: "Optional: tilt or shake gently. Tap the background for a ripple.",
@@ -156,8 +176,6 @@ const translations = {
     contactPending: "Public contact details are under review.",
     emailLabel: "Email",
     emailAria: "Email Fabio Hirata",
-    whatsappLabel: "WhatsApp",
-    whatsappAria: "Contact Fabio Hirata on WhatsApp",
     linkedinLabel: "LinkedIn",
     linkedinAction: "Profile",
     linkedinAria: "View Fabio Hirata's LinkedIn profile",
@@ -183,6 +201,7 @@ function setLanguage(language) {
     button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
   });
   window.siteMotion?.setLabels(copy.motion);
+  window.siteContact?.setLabels(copy);
   try { localStorage.setItem("fabio-site-language", lang); } catch (_) {}
 }
 
@@ -200,20 +219,12 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
 
 const publicProfile = window.siteConfig || {};
 const email = String(publicProfile.publicEmail || "").trim();
-const whatsappDigits = String(publicProfile.whatsappDigits || "").trim();
 const emailLink = document.getElementById("email-link");
-const whatsappLink = document.getElementById("whatsapp-link");
 const linkedinLink = document.getElementById("linkedin-link");
 if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
   emailLink.href = `mailto:${email}`;
   document.getElementById("email-value").textContent = email;
   emailLink.hidden = false;
-}
-if (/^[1-9]\d{7,14}$/.test(whatsappDigits)) {
-  whatsappLink.href = `https://wa.me/${whatsappDigits}`;
-  document.getElementById("whatsapp-value").textContent =
-    String(publicProfile.whatsappDisplay || whatsappDigits);
-  whatsappLink.hidden = false;
 }
 try {
   const profile = new URL(String(publicProfile.linkedInUrl || ""));
@@ -224,9 +235,15 @@ try {
     linkedinLink.hidden = false;
   }
 } catch (_) {}
-const hasContact = !emailLink.hidden || !whatsappLink.hidden || !linkedinLink.hidden;
+const hasContact = !emailLink.hidden || !linkedinLink.hidden;
 document.getElementById("contact-links").hidden = !hasContact;
 document.querySelector(".contact-status").hidden = hasContact;
+
+window.siteContact = window.createSiteContact?.({
+  form: document.getElementById("contact-form"),
+  endpoint: publicProfile.contactFormEndpoint,
+  labels: translations[savedLanguage] || translations.pt
+});
 
 const canvas = document.getElementById("constellation");
 const ctx = canvas.getContext("2d");

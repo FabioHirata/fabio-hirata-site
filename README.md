@@ -19,7 +19,7 @@ Tenho interesse em escuta, trabalho cotidiano e sistemas simples que possam ajud
 
 ### Vamos conversar
 
-[Email](mailto:REDACTED_CONTACT) · [WhatsApp](https://wa.me/REDACTED_CONTACT) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/)
+[Email](mailto:REDACTED_CONTACT) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/)
 
 <details>
 <summary>日本語</summary>

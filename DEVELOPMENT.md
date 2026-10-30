@@ -1,6 +1,6 @@
 # Desenvolvimento do site pessoal de Fabio Hirata
 
-Site estático em português, japonês e inglês, publicado no GitHub Pages. Sem backend, dependências de produção, analytics, fontes externas, formulário ou chamadas a APIs.
+Site estático em português, japonês e inglês, publicado no GitHub Pages. Sem backend próprio, dependências de produção, analytics ou fontes externas. O formulário de contato opcional usa POST nativo para um endpoint Formspree previamente ativado.
 
 ## Preview local
 
@@ -20,7 +20,7 @@ Abra `http://127.0.0.1:8765/`. Os caminhos são relativos, inclusive para GitHub
 - `styles.css`: composição responsiva, tipografia e cores.
 - `script.js`: traduções, contatos e quatro cenas em canvas.
 - `motion.js`: inclinação, chacoalhada e toque opcionais, com ciclo de vida e permissões.
-- `site-config.js`: email, WhatsApp e LinkedIn confirmados por Fabio.
+- `site-config.js`: email e LinkedIn confirmados por Fabio; endpoint do formulário Formspree.
 - `favicon.png`: arte quadrada **FH** fornecida por Fabio, 512 × 512 px, com fundo preto, letras brancas e triângulo roxo.
 - `tests/`: testes executáveis com Node, sem bibliotecas adicionais.
 
@@ -98,3 +98,20 @@ Testes adicionais verificam geometria contida no bulbo, projeção finita e enqu
 Inspeção visual do filamento realizada no Chrome em 1479×1065 e 390×844, com captura determinística do mesmo renderizador no instante de 12 segundos. A página temporária de inspeção foi removida após a captura. O preview normal permanece animado; sem overflow no celular. 
 
 Ajuste final do filamento: núcleo mais espesso (3 px desktop / 2,2 px celular antes da perspectiva), centro luminoso e halo âmbar localizado. Geometria, curva de acendimento, duração do ciclo e demais cenas preservadas. Inspeção em desktop/celular sem overflow ou erros de console; testes de ciclos e movimento reduzido passaram.
+
+## Formulário de contato (30/10/2026)
+
+O telefone e o WhatsApp foram removidos do código público e do README; o histórico Git não foi reescrito. Cartões de visita não foram alterados.
+
+- `contact.js` controla o formulário localizado em PT/JA/EN. Nome, email e mensagem são obrigatórios; telefone não é solicitado.
+- `contactFormEndpoint` vazio mantém o formulário oculto. Email e LinkedIn existentes continuam disponíveis. Isso evita publicar um formulário sem receptor.
+- Para ativar: criar/autorizar e verificar um formulário Formspree, confirmar o destinatário, manter CAPTCHA e filtros de spam, restringir ao domínio do site quando disponível e inserir a URL `https://formspree.io/f/ID` em `site-config.js`. Não há credencial secreta no frontend.
+- O POST nativo preserva o CAPTCHA e a confirmação hospedados pelo fornecedor. A página explica o redirecionamento; nunca declara localmente que uma mensagem foi entregue. O honeypot `_gotcha` é suportado em todos os planos conforme documentação oficial.
+- O botão impede duplo envio; retornar pelo navegador reabilita o controle. Campos não são armazenados por nosso JavaScript.
+- Antes de publicar a ativação, testar entrega real ao destinatário, CAPTCHA, volta ao site e os limites da conta. Não foi enviado contato real durante a preparação.
+- Privacidade do serviço: https://formspree.io/legal/privacy-policy/
+- Honeypot: https://help.formspree.io/articles/building-your-form/honeypot-spam-filtering
+
+Testes adicionais: `node --check contact.js` e `node tests/contact.test.cjs`.
+
+Endpoint configurado: `https://formspree.io/f/xyeepqzj`. Verificação visual e de entrega serão feitas no site publicado; o Chromium local não iniciou devido às restrições de socket do ambiente. Os testes Node de contato, idiomas, sensores e canvas passaram.
