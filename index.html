@@ -7,10 +7,11 @@
     <meta name="description" content="Fabio Hirata — entre pessoas, operações e tecnologia. Brasileiro vivendo em Fukui, Japão.">
     <title>Fabio Hirata — Pessoas, operações e tecnologia</title>
     <link rel="icon" href="./favicon.png?v=20261028-fh" type="image/png" sizes="512x512">
-    <link rel="stylesheet" href="./styles.css?v=20261026aj">
-    <script src="./site-config.js?v=20261026p" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261030">
+    <script src="./site-config.js?v=20261030" defer></script>
+    <script src="./contact.js?v=20261030" defer></script>
     <script src="./motion.js?v=20261026aj" defer></script>
-    <script src="./script.js?v=20261026ai" defer></script>
+    <script src="./script.js?v=20261030" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="skip">Ir para o conteúdo</a>
@@ -97,15 +98,22 @@
           <h2 id="contact-title" data-i18n="contactTitle">Boas conversas começam com boas perguntas.</h2>
           <p class="contact-copy" data-i18n="contactText">Estou pesquisando ideias para um projeto pessoal e aprendendo com quem vive desafios concretos no trabalho. Se nos encontrarmos para conversar, minha intenção é ouvir e entender.</p>
           <p class="contact-status"><span class="status-dot" aria-hidden="true"></span><span data-i18n="contactPending">Canal público de contato em revisão.</span></p>
+          <form id="contact-form" class="contact-form" method="post" hidden aria-describedby="contact-privacy">
+            <div class="contact-fields">
+              <label><span data-i18n="formName">Nome</span><input name="name" autocomplete="name" maxlength="100" required></label>
+              <label><span data-i18n="formEmail">E-mail</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+            </div>
+            <label><span data-i18n="formMessage">Mensagem</span><textarea name="message" rows="5" maxlength="5000" required></textarea></label>
+            <div class="contact-honeypot" aria-hidden="true"><label>Leave this field empty<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+            <p id="contact-privacy" class="contact-note" data-i18n="formPrivacy">Seu nome, e-mail e mensagem serão processados pelo Formspree e enviados a Fabio para responder ao contato. Não inclua dados sensíveis.</p>
+            <p class="contact-note"><span data-i18n="formRedirect">Você será levado ao Formspree para a verificação e confirmação do envio.</span> <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" data-i18n="formProviderPrivacy">Privacidade do Formspree</a>.</p>
+            <button id="contact-submit" class="contact-submit" type="submit" data-i18n="formSend">Enviar mensagem</button>
+            <p id="contact-result" class="contact-result" role="status" aria-live="polite" tabindex="-1"></p>
+          </form>
           <div class="contact-links" id="contact-links" hidden>
             <a id="email-link" class="contact-link" data-i18n-aria="emailAria" hidden>
               <span class="contact-kind" data-i18n="emailLabel">Email</span>
               <span class="contact-value" id="email-value"></span>
-              <span class="contact-arrow" aria-hidden="true">↗</span>
-            </a>
-            <a id="whatsapp-link" class="contact-link" data-i18n-aria="whatsappAria" target="_blank" rel="noopener noreferrer" hidden>
-              <span class="contact-kind" data-i18n="whatsappLabel">WhatsApp</span>
-              <span class="contact-value" id="whatsapp-value"></span>
               <span class="contact-arrow" aria-hidden="true">↗</span>
             </a>
             <a id="linkedin-link" class="contact-link" data-i18n-aria="linkedinAria" target="_blank" rel="noopener noreferrer" hidden>

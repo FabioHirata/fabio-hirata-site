@@ -1,8 +1,8 @@
 // Contatos públicos confirmados por Fabio.
 window.siteConfig = Object.freeze({
   publicEmail: "fabiohiratapl@gmail.com",
-  whatsappDigits: "818036446064",
-  whatsappDisplay: "080-3644-6064",
+  // Configure only after a real form receiver is activated and tested.
+  contactFormEndpoint: "https://formspree.io/f/xyeepqzj",
   // Perfil LinkedIn confirmado por Fabio.
   linkedInUrl: "https://www.linkedin.com/in/fabiohiratafelismino/"
 });

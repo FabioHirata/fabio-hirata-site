@@ -32,12 +32,14 @@ jobs:
           node --check script.js
           node --check motion.js
           node --check site-config.js
+          node --check contact.js
+          node tests/contact.test.cjs
           node tests/motion.test.cjs
           node tests/animation.test.cjs
       - name: Prepare public files
         run: |
           mkdir -p _site
-          cp index.html styles.css script.js motion.js site-config.js favicon.png _site/
+          cp index.html styles.css script.js motion.js contact.js site-config.js favicon.png _site/
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:

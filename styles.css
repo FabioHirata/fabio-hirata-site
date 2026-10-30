@@ -229,3 +229,22 @@ body[lang="ja"] .eyebrow, body[lang="ja"] .section-meta { letter-spacing: .08em;
 #motion-toggle:hover:not(:disabled) { color: var(--white); }
 #motion-toggle:disabled { cursor: default; color: var(--muted); text-decoration: none; }
 #motion-status { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+
+/* Contact uses the existing quiet dark palette, with real labels and large targets. */
+.contact-form { max-width: 620px; margin: 0 0 52px; }
+.contact-form[hidden] { display: none; }
+.contact-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.contact-form label { display: block; margin-bottom: 22px; color: #d2d2d2; font-size: 14px; font-weight: 400; }
+.contact-form label > span { display: block; margin-bottom: 8px; }
+.contact-form input, .contact-form textarea { width: 100%; min-width: 0; border: 1px solid #555; border-radius: 5px; background: #101010; color: var(--white); padding: 13px 14px; font: inherit; font-size: 16px; line-height: 1.5; }
+.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.contact-note, .contact-result { font-size: 13px; line-height: 1.7; color: #b5b5b5; }
+.contact-note { margin: 0 0 22px; }
+.contact-note a { text-underline-offset: 3px; }
+.contact-submit { min-height: 48px; padding: 13px 22px; border: 1px solid #a78bfa; border-radius: 5px; background: #8052ff; color: white; font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; }
+.contact-submit:hover { background: #6840d6; }
+.contact-submit:disabled { opacity: .65; cursor: wait; }
+.contact-result { min-height: 1.7em; margin: 14px 0 0; }
+.contact-honeypot { display: none; }
+@media (max-width: 600px) { .contact-fields { grid-template-columns: 1fr; gap: 0; } .contact-submit { width: 100%; } }

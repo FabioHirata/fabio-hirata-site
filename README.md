@@ -19,7 +19,7 @@ Tenho interesse em escuta, trabalho cotidiano e sistemas simples que possam ajud
 
 ### Vamos conversar
 
-[Email](mailto:fabiohiratapl@gmail.com) · [WhatsApp](https://wa.me/818036446064) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/)
+[Email](mailto:fabiohiratapl@gmail.com) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/)
 
 <details>
 <summary>日本語</summary>
