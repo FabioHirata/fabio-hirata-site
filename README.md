@@ -19,7 +19,7 @@ Tenho interesse em escuta, trabalho cotidiano e sistemas simples que possam ajud
 
 ### Vamos conversar
 
-[Email](mailto:REDACTED_CONTACT) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/)
+[Formulário de contato](https://fabiohirata.github.io/fabio-hirata-site/#conversa) · [LinkedIn](https://www.linkedin.com/in/fabiohiratafelismino/) · [GitHub](https://github.com/FabioHirata)
 
 <details>
 <summary>日本語</summary>
