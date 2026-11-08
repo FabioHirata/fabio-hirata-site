@@ -3,6 +3,8 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 const path=require('node:path');
+const {execFileSync}=require('node:child_process');
+const emailAddressPattern=/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\?\.[A-Z]{2,}/i;
 const read=name=>fs.readFileSync(path.join(__dirname,'..',name),'utf8');
 const source=read('script.js');
 const prefix=source.split('const canvas =')[0];
@@ -16,7 +18,25 @@ function setup(config,lang='pt') {
  vm.runInContext(prefix,context);return {nodes,context};
 }
 test('no public email or mailto in served text files',()=>{
- for(const file of ['index.html','script.js','site-config.js','contact.js','styles.css','motion.js']) assert.doesNotMatch(read(file),/mailto:|REDACTED_CONTACT|publicEmail/);
+ for(const file of ['index.html','script.js','site-config.js','contact.js','styles.css','motion.js']) {
+  assert.equal(/mailto:|publicEmail/.test(read(file)),false,`Direct email contact found in ${file}`);
+  assert.equal(emailAddressPattern.test(read(file)),false,`Email address found in ${file}`);
+ }
+});
+test('tracked text files do not contain literal email addresses',()=>{
+ const root=path.join(__dirname,'..');
+ const files=execFileSync('git',['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
+ for(const file of files) {
+  const bytes=fs.readFileSync(path.join(root,file));
+  if(bytes.includes(0)) continue;
+  assert.equal(emailAddressPattern.test(bytes.toString('utf8')),false,`Email address found in ${file}`);
+ }
+});
+test('privacy check recognizes literal and escaped email domains',()=>{
+ const synthetic=['reader','example'].join('@')+'.invalid';
+ assert.equal(emailAddressPattern.test(synthetic),true);
+ assert.equal(emailAddressPattern.test(synthetic.replace('.',String.fromCharCode(92)+'.')),true);
+ assert.equal(emailAddressPattern.test('name="email" type="email"'),false);
 });
 test('both official profile links, translated accessible names and tooltips',()=>{
  const c={window:{}};vm.runInNewContext(read('site-config.js'),c);
